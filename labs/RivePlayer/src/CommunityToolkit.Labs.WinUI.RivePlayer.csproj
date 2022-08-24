@@ -21,5 +21,10 @@
     <Version>0.0.1</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Rive.RiveSharp" Version="1.0.1-alpha.c7588722d" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.88.1" />
+  </ItemGroup>
+
   <!-- XAML Pages are automatically included, and don't need to be specified here. -->
 </Project>

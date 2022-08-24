@@ -8,12 +8,25 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <StackPanel Spacing="15">
-        <TextBlock Text="1" />
-        <TextBlock Text="2" />
-        <TextBlock Text="3" />
-        <TextBlock Text="4" />
-        <TextBlock Text="5" />
-        <TextBlock Text="6" />
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="400" />
+        </Grid.ColumnDefinitions>
+        <labs:RivePlayer Width="600" Height="600" DrawInBackground="True" Source="https://public.rive.app/community/runtime-files/2244-4463-animated-login-screen.riv" Grid.Column="0">
+            <labs:BoolInput Target="isChecking" Value="{Binding IsChecked, ElementName=IsChecking}" />
+            <labs:NumberInput Target="numLook" Value="{Binding Value, ElementName=NumLook}" />
+            <labs:BoolInput Target="isHandsUp" Value="{Binding IsChecked, ElementName=IsHandsUp}" />
+            <labs:TriggerInput Target="trigFail" x:Name="TrigFail" />
+            <labs:TriggerInput Target="trigSuccess" x:Name="TrigSuccess" />
+        </labs:RivePlayer>
+        <StackPanel VerticalAlignment="Center" Padding="20" Spacing="10" Grid.Column="1">
+            <CheckBox Content="Looking" x:Name="IsChecking" />
+            <Slider Minimum="0" Maximum="100" Value="0" x:Name="NumLook" IsEnabled="{Binding IsChecked, ElementName=IsChecking}" />
+            <CheckBox Content="Hands Up" x:Name="IsHandsUp" />
+            <Button Content="Failure" />
+            <Button Content="Success" />
+        </StackPanel>
+    </Grid>
+
 </Page>
