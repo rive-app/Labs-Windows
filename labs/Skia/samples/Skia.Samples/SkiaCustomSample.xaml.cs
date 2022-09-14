@@ -2,12 +2,12 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-namespace SkiaExperiment.Samples;
+#if !WINDOWS_WINAPPSDK
+using SkiaSharp.Views.UWP;
+using SkiaSharp;
+#endif
 
-/// <summary>
-/// An example sample page of a custom control inheriting from Panel.
-/// </summary>
-[ToolkitSampleMultiChoiceOption("LayoutOrientation", title: "Orientation", "Horizontal", "Vertical")]
+namespace SkiaExperiment.Samples;
 
 [ToolkitSample(id: nameof(SkiaCustomSample), "Custom control", description: $"A sample for showing how to create and use a {nameof(Skia)} custom control.")]
 public sealed partial class SkiaCustomSample : Page
@@ -15,13 +15,23 @@ public sealed partial class SkiaCustomSample : Page
     public SkiaCustomSample()
     {
         this.InitializeComponent();
+#if WINDOWS_WINAPPSDK
+        throw new Exception("not supported");
+#else
+        var panel = new SKSwapChainPanel()
+        {
+            Width = 500,
+            Height = 500,
+            EnableRenderLoop = true
+        };
+        panel.PaintSurface += (object sender, SKPaintGLSurfaceEventArgs args) =>
+        {
+            double t = (DateTime.Now - DateTime.MinValue).TotalSeconds;
+            var pow2 = (double x) => (float)(x * x);
+            var sinPow2 = (double t) => pow2(Math.Sin(t));
+            args.Surface.Canvas.Clear(new SKColorF(sinPow2(t * .75), sinPow2(t * 1.1), sinPow2(t * .4)));
+        };
+        this.Content = panel;
+#endif
     }
-
-    // TODO: See https://github.com/CommunityToolkit/Labs-Windows/issues/149
-    public static Orientation ConvertStringToOrientation(string orientation) => orientation switch
-    {
-        "Vertical" => Orientation.Vertical,
-        "Horizontal" => Orientation.Horizontal,
-        _ => throw new System.NotImplementedException(),
-    };
 }
