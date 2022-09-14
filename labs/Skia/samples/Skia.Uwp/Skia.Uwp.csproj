@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$([MSBuild]::GetPathOfFileAbove(directory.build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(directory.build.props))')" />
+  
+  <!-- Labs Constants -->
+  <Import Project="$(RepositoryDirectory)common\Labs.TargetFrameworks.props" />
+  <PropertyGroup>
+    <IsDeployableHead>true</IsDeployableHead>
+    <IsUno>false</IsUno>
+    <IsWasm>false</IsWasm>
+    <IsWasmHead>false</IsWasmHead>
+    <IsWasmLib>false</IsWasmLib>
+    <IsDroid>false</IsDroid>
+    <IsMacOS>false</IsMacOS>
+    <IsiOS>false</IsiOS>
+    <IsUwp>true</IsUwp>
+    <IsWinAppSdk>false</IsWinAppSdk>
+    <IsWpf>false</IsWpf>
+    <IsWpfHead>false</IsWpfHead>
+    <IsWpfLib>false</IsWpfLib>
+    <IsGtk>false</IsGtk>
+    <IsGtkHead>false</IsGtkHead>
+    <IsGtkLib>false</IsGtkLib>
+  </PropertyGroup>
+  <Import Project="$(RepositoryDirectory)common\Labs.ProjectIdentifiers.props" />
+
+  <!-- Labs Platform Config -->
+  <Import Project="$(RepositoryDirectory)common\Labs.Head.Uwp.props" />
+
+  <!-- Labs Project Config -->
+  <Import Project="$(RepositoryDirectory)common\Labs.Head.props" />
+
+  <PropertyGroup>
+    <RootNamespace>SkiaExperiment.Samples</RootNamespace>
+    <AssemblyName>SkiaExperiment.Samples.Uwp</AssemblyName>
+    <ProjectGuid>{760D5B94-45AF-4E5C-BBBA-C116DCAFD996}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\Default.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CommunityToolkit.Labs.WinUI.Skia.csproj">
+      <Project>{BD48D4C3-B9DE-42B7-9434-B928508840C6}</Project>
+      <Name>CommunityToolkit.Labs.WinUI.Skia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Skia.Samples\Skia.Samples.csproj">
+      <Project>{E942E6FD-80C8-4944-85F0-E0E3288049D0}</Project>
+      <Name>Skia.Sample</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- Must be imported after any shared projects in non-sdk style projects -->
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+</Project>

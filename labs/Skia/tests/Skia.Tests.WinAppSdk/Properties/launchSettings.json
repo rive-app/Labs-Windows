@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Skia.Tests.WinAppSdk (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Skia.Tests.WinAppSdk (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
